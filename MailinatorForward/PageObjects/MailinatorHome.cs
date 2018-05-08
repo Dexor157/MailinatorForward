@@ -35,10 +35,10 @@ namespace MailinatorForward.PageObjects
         }
         public LoginPage ClickLogin() {
             GetSignInButton().Click();
-            return new LoginPage(driver,  action, wait);
+            return new LoginPage(driver, action, wait); 
         }
         public InboxPage OpenInbox(String inboxname) {
-            GetInboxField().SendKeys("inboxname");
+            GetInboxField().SendKeys(inboxname);
             GetInboxField().SendKeys(Keys.Enter);
             return new InboxPage(driver, action, wait);
         }

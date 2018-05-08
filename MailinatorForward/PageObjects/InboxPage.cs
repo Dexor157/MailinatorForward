@@ -26,13 +26,16 @@ namespace MailinatorForward.PageObjects
             this.wait = _wait;
         }
         public ReadOnlyCollection<IWebElement> GetEmailList() {
-            return driver.FindElement(By.Id("inboxpane")).FindElements(By.XPath("//*"));
+            Console.WriteLine(driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li")).Count);
+            return driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li"));
+            
         }
         public IWebElement GetEmail(int count) {
             return GetEmailList()[count];
         }
         public EmailPage ClickEmail(int count) {
-            GetEmail(count).Click();
+            IWebElement target = GetEmailList()[count];
+            target.Click();
             return new EmailPage(driver, action, wait);
 
         }

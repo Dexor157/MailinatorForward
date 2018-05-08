@@ -21,6 +21,7 @@ namespace MailinatorForward.PageObjects
 
         public EmailPage(IWebDriver _driver, Actions _action, WebDriverWait _wait)
         {
+
             this.driver = _driver;
             this.action = _action;
             this.wait = _wait;
