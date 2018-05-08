@@ -19,14 +19,22 @@ namespace MailinatorForward.PageObjects
         Actions action;
         WebDriverWait wait;
 
-        public EmailPage(IWebDriver _driver, Actions _action, WebDriverWait _wait)
-        {
-
+        public EmailPage(IWebDriver _driver, Actions _action, WebDriverWait _wait){
             this.driver = _driver;
             this.action = _action;
             this.wait = _wait;
         }
 
-
+        public String getJSON() {
+            viewJSON();
+            var text = driver.FindElement(By.XPath("/html/body/pre")).GetAttribute("innerHTML");
+            Console.WriteLine(text);
+            return text;
+        }
+        public void viewJSON() {
+            var dropdown = driver.FindElement(By.Id("contenttypeselect"));
+            dropdown.Click();
+            dropdown.FindElement(By.CssSelector("option[value='json']")).Click();
+        }
     }
 }
