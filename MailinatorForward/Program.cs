@@ -10,13 +10,27 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Threading;
+using MailinatorForward.PageObjects;
 namespace MailinatorForward
 {
     class Program
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--start-maximized");
+            IWebDriver driver = new ChromeDriver(options);
+            Actions action = new Actions(driver);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            
+
+
+            MailinatorHome homepage = new MailinatorHome(driver, action, wait);
+            LoginPage loginpage = homepage.ClickLogin();
+            MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com","TestPass");
+            loggedinhome.OpenInbox("SeTest");
+
         }
     }
 }
