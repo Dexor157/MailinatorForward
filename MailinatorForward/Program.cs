@@ -29,7 +29,7 @@ namespace MailinatorForward
             MailinatorHome homepage = new MailinatorHome(driver, action, wait);
             LoginPage loginpage = homepage.ClickLogin();
             MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com","TestPass");
-            loggedinhome.OpenInbox("SeTest");
+            InboxPage inbox = loggedinhome.OpenInbox("SeTest");
 
         }
     }
