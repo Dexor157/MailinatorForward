@@ -11,7 +11,6 @@ using System.IO;
 using System.Net;
 using System.Threading;
 using MailinatorForward.PageObjects;
-using MailinatorForward.Util;
 namespace MailinatorForward
 {
     class Program
@@ -21,21 +20,18 @@ namespace MailinatorForward
 
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--start-maximized");
-            //IWebDriver driver = new ChromeDriver(options);
-            //Actions action = new Actions(driver);
-            //WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            IWebDriver driver = new ChromeDriver(options);
+            Actions action = new Actions(driver);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
+            
 
 
-
-            //MailinatorHome homepage = new MailinatorHome(driver, action, wait);
-            //LoginPage loginpage = homepage.ClickLogin();
-            //MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com","TestPass");
-            //InboxPage inbox = loggedinhome.OpenInbox("SeTest");
-            //inbox.ClickEmail(0);
-            SQLRetrieval net = new SQLRetrieval();
-            Console.WriteLine(net.GetEmail(18));
-            //net.GetEmail(18);
-
+            MailinatorHome homepage = new MailinatorHome(driver, action, wait);
+            LoginPage loginpage = homepage.ClickLogin();
+            MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com","TestPass");
+            InboxPage inbox = loggedinhome.OpenInbox("SeTest");
+            var email = inbox.ClickEmail(0);
+            var s = email.getJSON();
         }
     }
 }

@@ -6,10 +6,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Es.Serializer.NetSerializer" Version="1.1.6" />
     <PackageReference Include="Selenium.Support" Version="3.11.2" />
     <PackageReference Include="Selenium.WebDriver" Version="3.11.2" />
-    <PackageReference Include="System.Data.Common" Version="4.3.0" />
-    <PackageReference Include="System.Data.SqlClient" Version="4.4.3" />
+    <PackageReference Include="Vse.Web.Serialization.ControlledSerializationJsonConverter" Version="1.0.4" />
+    <PackageReference Include="WebApiContrib.Formatting.JavaScriptSerializer" Version="0.9.4" />
   </ItemGroup>
 
 </Project>
