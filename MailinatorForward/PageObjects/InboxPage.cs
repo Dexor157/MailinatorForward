@@ -26,5 +26,6 @@ namespace MailinatorForward.PageObjects
             this.wait = _wait;
         }
 
+        //driver.FindElements(By.CssSelector("//id[class='all_message-item all_message-item-parent cf ng-scope')"));
     }
 }
