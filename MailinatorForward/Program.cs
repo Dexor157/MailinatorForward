@@ -30,8 +30,8 @@ namespace MailinatorForward
             LoginPage loginpage = homepage.ClickLogin();
             MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com","TestPass");
             InboxPage inbox = loggedinhome.OpenInbox("SeTest");
-            inbox.ClickEmail(0);
-
+            var email = inbox.ClickEmail(0);
+            var s = email.getJSON();
         }
     }
 }

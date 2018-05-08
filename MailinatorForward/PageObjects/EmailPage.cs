@@ -10,6 +10,10 @@ using System.Drawing;
 using System.IO;
 using System.Net;
 using System.Threading;
+using System.Web;
+using Newtonsoft.Json;
+using Newtonsoft;
+using Newtonsoft.Json.Linq;
 
 namespace MailinatorForward.PageObjects
 {
@@ -24,11 +28,13 @@ namespace MailinatorForward.PageObjects
             this.action = _action;
             this.wait = _wait;
         }
-
         public String getJSON() {
             viewJSON();
-            var text = driver.FindElement(By.XPath("/html/body/pre")).GetAttribute("innerHTML");
+            driver.SwitchTo().Frame("msg_body");
+            var text = driver.FindElement(By.TagName("pre")).GetAttribute("innerHTML");
             Console.WriteLine(text);
+            JObject email = JObject.Parse(text);
+            Console.WriteLine(email.SelectToken("fromfull"));
             return text;
         }
         public void viewJSON() {
