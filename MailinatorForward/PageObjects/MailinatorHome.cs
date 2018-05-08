@@ -14,7 +14,7 @@ namespace MailinatorForward.PageObjects
 {
     public class MailinatorHome
     {
-
+         
         IWebDriver driver;
         Actions action;
         WebDriverWait wait;
