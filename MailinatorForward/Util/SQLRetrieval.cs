@@ -5,7 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Collections.Generic;
 using System.Linq;
-
+using System.Data;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -54,26 +54,9 @@ namespace MailinatorForward.Util
                 }
                 //Console.ReadLine();
             }
-            string json = @"{
-   'CPU': 'Intel',
-   'PSU': '500W',
-   'Drives': [
-     'DVD read/writer'
-     /*(broken)*/,
-     '500 gigabyte hard drive',
-     '200 gigabype hard drive'
-   ]
-}";
-            JsonTextReader jreader = new JsonTextReader(new StringReader(json));
-            
+
             return "DATANOTFOUND";
         }
     }
 }
-/*
- "Data Source=intrideo-can-test-sql.database.windows.net;" +
-                                        "Initial Catalog=intrideo-can-test-db;" +
-                                        "user id=TestCanadaAdmin;" +
-                                        "password=h3LL0srk1rk!";
-     
-     */
+
