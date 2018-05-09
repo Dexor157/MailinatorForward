@@ -25,8 +25,8 @@ namespace MailinatorForward.Util
                                             "Initial Catalog=intrideo-can-test-db;" +
                                             "user id={0};" +
                                             "password={1}", username, password);
-            string queryString = "SELECT [ApplicantId],[Email]FROM[dbo].[Applicants]";
 
+            string queryString = "SELECT [ApplicantId],[Guid]FROM[dbo].[Applicants]";
 
             using (SqlConnection connection =
             new SqlConnection(connectionString))
@@ -41,7 +41,7 @@ namespace MailinatorForward.Util
                     {
                         if((int)reader[0] == id) {
                             
-                            return (String)reader[1];
+                            return reader[1].ToString();
                         }
                         
                         
