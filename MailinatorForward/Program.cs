@@ -26,8 +26,9 @@ namespace MailinatorForward
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
             SQLRetrieval sql = new SQLRetrieval();
             //user inputs ID
-            int selectionId = int.Parse(Console.ReadLine());
-            String inboxaddress = sql.GetEmail(selectionId);
+            //int selectionId = int.Parse(Console.ReadLine());
+            String inboxaddress = sql.GetEmail(45);
+            Console.WriteLine(inboxaddress);
             //navigate to mailbox
             MailinatorHome homepage = new MailinatorHome(driver, action, wait);
             LoginPage loginpage = homepage.ClickLogin();
@@ -38,7 +39,7 @@ namespace MailinatorForward
             //send email to target
             EmailSender sender = new EmailSender();
             sender.sendMail("s.dunlop@socyinc.com","Sean Dunlop","TestPass","Forwarded Email", email.ViewHtml());
-
+            driver.Close();
 
 
 

@@ -53,7 +53,6 @@ namespace MailinatorForward.PageObjects
             dropdown.FindElement(By.CssSelector("option[value='text/html']")).Click();
             driver.SwitchTo().Frame("msg_body");
             String text = driver.FindElement(By.XPath("//*")).GetAttribute("innerHTML");
-            Console.WriteLine(text);
             return text;
                 
 
