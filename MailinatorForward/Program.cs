@@ -25,15 +25,16 @@ namespace MailinatorForward
             Actions action = new Actions(driver);
             WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
             SQLRetrieval sql = new SQLRetrieval();
+            string connectionString = sql.GetConnectionString();
             //user inputs ID
             User user;
             Console.WriteLine("Enter an ID or 'no' to use first valid inbox");
             String selection = Console.ReadLine();
             if (selection == "no") {
-                user = sql.GetUser();
+                user = sql.GetUser(connectionString);
             }
             else {
-                user = sql.GetUser(int.Parse(selection));
+                user = sql.GetUser(connectionString, int.Parse(selection));
             }
             //either user can enter an Id or program will check first valid email from the database
 
@@ -46,16 +47,22 @@ namespace MailinatorForward
             LoginPage loginpage = homepage.ClickLogin();
             MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com", "TestPass");
             InboxPage inbox = loggedinhome.OpenInbox(user.GetAddress());
-
-            
-            EmailPage email = inbox.ClickEmail(0);
-            //navigate to the mailbox and click most recent email
-            
+            EmailPage email;
             EmailSender sender = new EmailSender();
-            
-            sender.sendMail("s.dunlop@socyinc.com","Sean Dunlop","TestPass","Forwarded Email", user.MakeString() + email.ViewHtml());
+            while (true) {
+
+
+                //navigate to the mailbox and click most recent email
+
+                email = inbox.ClickEmail(0);
+
+                sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
+                inbox = email.GotoInbox(user.GetAddress());
+
+
+            }
             //send email to target
-            driver.Close();
+            //driver.Close();
             //close driver
 
         }

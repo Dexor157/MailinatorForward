@@ -26,6 +26,10 @@ namespace MailinatorForward.PageObjects
             this.wait = _wait;
             driver.Url = "https://www.mailinator.com/";
         }
+        public MailinatorHome GotoHome() {
+            driver.Url = "https://www.mailinator.com/";
+            return new MailinatorHome(driver, action, wait);
+        }
         public IWebElement GetSignInButton() {
             return wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("[href='/manyauth/login.jsp']")));
             //return driver.FindElement(By.CssSelector("[href='/manyauth/login.jsp']"));

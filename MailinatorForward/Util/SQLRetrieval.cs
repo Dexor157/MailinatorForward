@@ -15,17 +15,10 @@ namespace MailinatorForward.Util
 {
     class SQLRetrieval
     {
-        public User GetUser()
+        public User GetUser(String connectionString)
         {
 
-            Console.WriteLine("Enter Username");
-            string username = Console.ReadLine();
-            Console.WriteLine("Enter Password");
-            string password = Console.ReadLine();
-            string connectionString = String.Format("Data Source=intrideo-can-test-sql.database.windows.net;" +
-                                            "Initial Catalog=intrideo-can-test-db;" +
-                                            "user id={0};" +
-                                            "password={1}", username, password);
+            
 
             string queryString = "SELECT [ApplicantId],[Email],[FirstName],[LastName]FROM[dbo].[Applicants]";
 
@@ -64,17 +57,10 @@ namespace MailinatorForward.Util
             return new User("Notauser","Notauser","NULL",-1); ;
         }
 
-        public User GetUser(int id)
+        public User GetUser(String connectionString, int id)
         {
 
-            Console.WriteLine("Enter Username");
-            string username = Console.ReadLine();
-            Console.WriteLine("Enter Password");
-            string password = Console.ReadLine();
-            string connectionString = String.Format("Data Source=intrideo-can-test-sql.database.windows.net;" +
-                                            "Initial Catalog=intrideo-can-test-db;" +
-                                            "user id={0};" +
-                                            "password={1}", username, password);
+            
 
             string queryString = "SELECT [ApplicantId],[Email],[FirstName],[LastName]FROM[dbo].[Applicants]";
 
@@ -113,7 +99,20 @@ namespace MailinatorForward.Util
             Console.WriteLine("User not found");
             return new User("Notauser", "Notauser", "NULL", -1); ;
         }
+        public String GetConnectionString() {
 
+            Console.WriteLine("Enter Username");
+            string username = Console.ReadLine();
+            Console.WriteLine("Enter Password");
+            string password = Console.ReadLine();
+            string connectionString = String.Format("Data Source=intrideo-can-test-sql.database.windows.net;" +
+                                            "Initial Catalog=intrideo-can-test-db;" +
+                                            "user id={0};" +
+                                            "password={1}", username, password);
+            return connectionString;
+            
+
+        }
         public Boolean IsValidEmail(string email) {
 
             if (email.Contains("@mailinator.com")) {

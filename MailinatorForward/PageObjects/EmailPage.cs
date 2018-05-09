@@ -8,7 +8,6 @@ using System.Net.Mail;
 using System;
 using System.Drawing;
 using System.IO;
-using System.Net;
 using System.Threading;
 using System.Web;
 using Newtonsoft.Json;
@@ -29,6 +28,15 @@ namespace MailinatorForward.PageObjects
             this.action = _action;
             this.wait = _wait;
         }
+        
+        public IWebElement GetInboxField() {
+            return wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@class='lb-container']//*[@class='lb-search']//*[@id='inbox_field']")));
+        }
+        public InboxPage GotoInbox(String address) {
+            GetInboxField().SendKeys(address);
+            GetInboxField().SendKeys(Keys.Enter);
+            return new InboxPage(driver, action, wait);
+        }
         public JObject getJSON() {
             viewJSON();
             driver.SwitchTo().Frame("msg_body");
@@ -36,8 +44,6 @@ namespace MailinatorForward.PageObjects
             Console.WriteLine(text);
             JObject email = JObject.Parse(text);
             return email;
-            //Console.WriteLine(email.SelectToken("fromfull"));
-            //return text;
 
         }
         public void PrintJsonData() {
@@ -48,9 +54,6 @@ namespace MailinatorForward.PageObjects
         }
         public String ViewHtml() {
 
-            var dropdown = driver.FindElement(By.Id("contenttypeselect"));
-            dropdown.Click();
-            dropdown.FindElement(By.CssSelector("option[value='text/html']")).Click();
             driver.SwitchTo().Frame("msg_body");
             String text = driver.FindElement(By.XPath("//*")).GetAttribute("innerHTML");
             return text;

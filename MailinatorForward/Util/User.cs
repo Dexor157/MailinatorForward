@@ -45,9 +45,8 @@ namespace MailinatorForward.Util
         }
         public String MakeString() {
             String info;
-            info = String.Format("This is a forwarded email, originally sent to {} {}, Id number {}", FirstName, LastName, Id);
+            info = String.Format("This is a forwarded email, originally sent to {0} {1}, Id number {2}", FirstName, LastName, Id);
             return info;
-
         }
     }
 }
