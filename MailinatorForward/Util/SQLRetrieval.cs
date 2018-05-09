@@ -15,7 +15,7 @@ namespace MailinatorForward.Util
 {
     class SQLRetrieval
     {
-        public String GetEmail()
+        public User GetUser()
         {
 
             Console.WriteLine("Enter Username");
@@ -27,7 +27,7 @@ namespace MailinatorForward.Util
                                             "user id={0};" +
                                             "password={1}", username, password);
 
-            string queryString = "SELECT [ApplicantId],[Email]FROM[dbo].[Applicants]";
+            string queryString = "SELECT [ApplicantId],[Email],[FirstName],[LastName]FROM[dbo].[Applicants]";
 
             using (SqlConnection connection =
             new SqlConnection(connectionString))
@@ -41,7 +41,14 @@ namespace MailinatorForward.Util
                     while (reader.Read())
                     {
                         if(IsValidEmail((reader[1]).ToString())) {
-                            return reader[1].ToString();
+
+                            return new User(
+                                reader[2].ToString(),
+                                reader[3].ToString(), 
+                                reader[1].ToString(), 
+                                int.Parse(reader[0].ToString())
+                                );
+                            
                         }
                         
                         
@@ -52,12 +59,12 @@ namespace MailinatorForward.Util
                 {
                     Console.WriteLine(ex.Message);
                 }
-                //Console.ReadLine();
             }
-
-            return "DATANOTFOUND";
+            Console.WriteLine("No user found");
+            return new User("Notauser","Notauser","NULL",-1); ;
         }
-        public String GetEmail(int id)
+
+        public User GetUser(int id)
         {
 
             Console.WriteLine("Enter Username");
@@ -69,7 +76,7 @@ namespace MailinatorForward.Util
                                             "user id={0};" +
                                             "password={1}", username, password);
 
-            string queryString = "SELECT [ApplicantId],[Email]FROM[dbo].[Applicants]";
+            string queryString = "SELECT [ApplicantId],[Email],[FirstName],[LastName]FROM[dbo].[Applicants]";
 
             using (SqlConnection connection =
             new SqlConnection(connectionString))
@@ -82,9 +89,16 @@ namespace MailinatorForward.Util
 
                     while (reader.Read())
                     {
-                        if ((int)reader[0] == id)
+                        if (IsValidEmail((reader[1]).ToString()) && (int)reader[0] == id)
                         {
-                            return reader[1].ToString();
+
+                            return new User(
+                                reader[2].ToString(),
+                                reader[3].ToString(),
+                                reader[1].ToString(),
+                                int.Parse(reader[0].ToString())
+                                );
+
                         }
 
 
@@ -95,11 +109,11 @@ namespace MailinatorForward.Util
                 {
                     Console.WriteLine(ex.Message);
                 }
-                //Console.ReadLine();
             }
-
-            return "DATANOTFOUND";
+            Console.WriteLine("User not found");
+            return new User("Notauser", "Notauser", "NULL", -1); ;
         }
+
         public Boolean IsValidEmail(string email) {
 
             if (email.Contains("@mailinator.com")) {
