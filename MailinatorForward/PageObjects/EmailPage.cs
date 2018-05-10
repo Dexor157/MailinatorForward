@@ -12,7 +12,6 @@ using System.Threading;
 using System.Web;
 using Newtonsoft.Json;
 using Newtonsoft;
-
 using Newtonsoft.Json.Linq;
 
 namespace MailinatorForward.PageObjects
@@ -27,14 +26,13 @@ namespace MailinatorForward.PageObjects
             this.driver = _driver;
             this.action = _action;
             this.wait = _wait;
-        }
-        
+        } 
         public IWebElement GetInboxField() {
             Console.WriteLine("Trying to find inbox field");
             return wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@id='inbox_field']")));
         }
         public IWebElement GetDeleteButton() {
-            return wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//span[@title='Delete Emails']")));
+            return wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//i[@class='fa fa-trash fa-stack-1x fa-inverse']")));
         }
         public InboxPage DeleteEmail(){
             GetDeleteButton().Click();
@@ -60,7 +58,6 @@ namespace MailinatorForward.PageObjects
             Console.WriteLine(text);
         }
         public String ViewHtml() {
-
             driver.SwitchTo().Frame("msg_body");
             String text = driver.FindElement(By.XPath("//*")).GetAttribute("innerHTML");
             return text;
