@@ -50,12 +50,15 @@ namespace MailinatorForward
             EmailSender sender = new EmailSender();
             while (true) {
 
+                if (inbox.CheckInboxNotEmpty()) {
+                    email = inbox.ClickEmail(0);
+                    //navigate to the mailbox and click most recent email
+                    sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
+                    //send the most recent email to the given address with some extra info on the original recipient
+                    inbox = email.DeleteEmail();
+                    //gets rid of invisible deleted emails
+                }
                 
-                email = inbox.ClickEmail(0);
-                //navigate to the mailbox and click most recent email
-                sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
-                //send the most recent email to the given address with some extra info on the original recipient
-                inbox = email.DeleteEmail();
                 driver.Navigate().Refresh();
 
             }

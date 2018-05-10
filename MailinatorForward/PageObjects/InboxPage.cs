@@ -35,10 +35,14 @@ namespace MailinatorForward.PageObjects
             return driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li"));
 
         }
+        public Boolean CheckInboxNotEmpty() {
+            return(driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li")).Count > 0);
+        }
         public IWebElement GetEmail(int index) {
             return GetEmailList()[index];
         }
         public EmailPage ClickEmail(int count) {
+            
             IWebElement target = GetEmailList()[count];
             target.Click();
             return new EmailPage(driver, action, wait);
