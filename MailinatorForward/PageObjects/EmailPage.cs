@@ -64,10 +64,7 @@ namespace MailinatorForward.PageObjects
             driver.SwitchTo().Frame("msg_body");
             String text = driver.FindElement(By.XPath("//*")).GetAttribute("innerHTML");
             return text;
-                
-
         }
-        
         public String getSender() {
             return (String)getJSON().SelectToken("fromfull");
         }
