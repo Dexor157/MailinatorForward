@@ -57,7 +57,7 @@ namespace MailinatorForward
                 sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
                 //send the most recent email to the given address with some extra info on the original recipient
                 inbox = email.DeleteEmail();
-
+                driver.Navigate().Refresh();
 
             }
             //send email to target

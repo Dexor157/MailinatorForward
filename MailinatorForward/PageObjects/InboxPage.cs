@@ -31,6 +31,7 @@ namespace MailinatorForward.PageObjects
             
         }
         public IWebElement GetEmail(int count) {
+            
             return GetEmailList()[count];
         }
         public EmailPage ClickEmail(int count) {
