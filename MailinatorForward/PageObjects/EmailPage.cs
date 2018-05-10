@@ -60,6 +60,7 @@ namespace MailinatorForward.PageObjects
         public String ViewHtml() {
             driver.SwitchTo().Frame("msg_body");
             String text = driver.FindElement(By.XPath("//*")).GetAttribute("innerHTML");
+            driver.SwitchTo().DefaultContent();
             return text;
         }
         public String getSender() {
