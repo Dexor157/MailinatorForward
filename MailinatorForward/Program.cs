@@ -18,12 +18,6 @@ namespace MailinatorForward
     {
         static void Main(string[] args)
         {
-
-            ChromeOptions options = new ChromeOptions();
-            options.AddArgument("--start-maximized");
-            IWebDriver driver = new ChromeDriver(options);
-            Actions action = new Actions(driver);
-            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
             SQLRetrieval sql = new SQLRetrieval();
             string connectionString = sql.GetConnectionString();
             //user inputs ID
@@ -36,9 +30,14 @@ namespace MailinatorForward
             else {
                 user = sql.GetUser(connectionString, int.Parse(selection));
             }
+            ChromeOptions options = new ChromeOptions();
+            options.AddArgument("--start-maximized");
+            IWebDriver driver = new ChromeDriver(options);
+            Actions action = new Actions(driver);
+            WebDriverWait wait = new WebDriverWait(driver, TimeSpan.FromSeconds(3));
             //either user can enter an Id or program will check first valid email from the database
 
-            
+
             Console.WriteLine(user.GetAddress());
             //print the address being used
 

@@ -30,8 +30,13 @@ namespace MailinatorForward.PageObjects
             return driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li"));
             
         }
-        public IWebElement GetEmail(int count) {
-            return GetEmailList()[count];
+        public ReadOnlyCollection<IWebElement> GetEmailList(int index) {
+            Console.WriteLine(driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li")).Count);
+            return driver.FindElement(By.Id("inboxpane")).FindElements(By.TagName("li"));
+
+        }
+        public IWebElement GetEmail(int index) {
+            return GetEmailList()[index];
         }
         public EmailPage ClickEmail(int count) {
             IWebElement target = GetEmailList()[count];
