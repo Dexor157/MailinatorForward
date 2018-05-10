@@ -30,7 +30,15 @@ namespace MailinatorForward.PageObjects
         }
         
         public IWebElement GetInboxField() {
-            return wait.Until(ExpectedConditions.ElementExists(By.XPath("//*[@class='lb-container']//*[@class='lb-search']//*[@id='inbox_field']")));
+            Console.WriteLine("Trying to find inbox field");
+            return wait.Until(ExpectedConditions.ElementExists(By.XPath("//input[@id='inbox_field']")));
+        }
+        public IWebElement GetDeleteButton() {
+            return wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//span[@title='Delete Emails']")));
+        }
+        public InboxPage DeleteEmail(){
+            GetDeleteButton().Click();
+            return new InboxPage(driver, action, wait);
         }
         public InboxPage GotoInbox(String address) {
             GetInboxField().SendKeys(address);
@@ -44,7 +52,6 @@ namespace MailinatorForward.PageObjects
             Console.WriteLine(text);
             JObject email = JObject.Parse(text);
             return email;
-
         }
         public void PrintJsonData() {
             viewJSON();

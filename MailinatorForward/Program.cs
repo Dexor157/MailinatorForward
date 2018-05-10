@@ -51,13 +51,12 @@ namespace MailinatorForward
             EmailSender sender = new EmailSender();
             while (true) {
 
-
-                //navigate to the mailbox and click most recent email
-
+                
                 email = inbox.ClickEmail(0);
-
+                //navigate to the mailbox and click most recent email
                 sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
-                inbox = email.GotoInbox(user.GetAddress());
+                //send the most recent email to the given address with some extra info on the original recipient
+                inbox = email.DeleteEmail();
 
 
             }
@@ -71,5 +70,4 @@ namespace MailinatorForward
 /*
  TODO:
 Make the process poll an inbox to wait for new emails, respond when new emails arrive
-Make forwarded email contain extra data about the original recipient such as first,last name
      */
