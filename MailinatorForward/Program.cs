@@ -30,6 +30,8 @@ namespace MailinatorForward
             else {
                 user = sql.GetUser(connectionString, int.Parse(selection));
             }
+            Console.WriteLine("Enter a destination email");
+            String destinationAddress = Console.ReadLine();
             ChromeOptions options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             IWebDriver driver = new ChromeDriver(options);
@@ -43,9 +45,9 @@ namespace MailinatorForward
 
             
             MailinatorHome homepage = new MailinatorHome(driver, action, wait);
-            LoginPage loginpage = homepage.ClickLogin();
-            MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com", "TestPass");
-            InboxPage inbox = loggedinhome.OpenInbox(user.GetAddress());
+            //LoginPage loginpage = homepage.ClickLogin();
+            //MailinatorHome loggedinhome = loginpage.Login("DaveTestSe@gmail.com", "TestPass");
+            InboxPage inbox = homepage.OpenInbox(user.GetAddress());
             EmailPage email;
             EmailSender sender = new EmailSender();
             while (true) {
@@ -53,9 +55,13 @@ namespace MailinatorForward
                 if (inbox.CheckInboxNotEmpty()) {
                     email = inbox.ClickEmail(0);
                     //navigate to the mailbox and click most recent email
-                    sender.sendMail("s.dunlop@socyinc.com", "Sean Dunlop", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
+                    sender.sendMail(destinationAddress, "Mailinator", "TestPass", "Forwarded Email", user.MakeString() + email.ViewHtml());
+                    Console.WriteLine("Sent email");
                     //send the most recent email to the given address with some extra info on the original recipient
                     inbox = email.DeleteEmail();
+                    Console.WriteLine("Deleted an email");
+
+                    driver.Manage().Cookies.DeleteAllCookies();
                     //gets rid of invisible deleted emails
                 }
                 

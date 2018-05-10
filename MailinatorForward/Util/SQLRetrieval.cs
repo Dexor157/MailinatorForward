@@ -17,9 +17,6 @@ namespace MailinatorForward.Util
     {
         public User GetUser(String connectionString)
         {
-
-            
-
             string queryString = "SELECT [ApplicantId],[Email],[FirstName],[LastName]FROM[dbo].[Applicants]";
 
             using (SqlConnection connection =
@@ -43,8 +40,7 @@ namespace MailinatorForward.Util
                                 );
                             
                         }
-                        
-                        
+   
                     }
                     reader.Close();
                 }
